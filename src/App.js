@@ -1,10 +1,14 @@
 //import Recepie from "./Recipe";
 import Recipe from "./Recipe";
 import "./App.css";
+import Toggle from "./Toggle/Toggle";
+import { useContext } from "react";
+import { themeContext } from "./Context";
 
 import React, { useEffect, useState } from "react";
 //import Pages from "./pages/Pages";
 const App=()=>{
+  
   
 const APP_ID="17c09b2b"
 const APP_KEY="9b3cf5725b01aad827a1513184c4ff83"
@@ -37,9 +41,19 @@ const getSearch = e=>{
   e.preventDefault();
   setQuery(search);
 };
-
+const theme = useContext(themeContext);
+  const darkMode = theme.state.darkMode;
   return (
-    <div className="App">
+  
+    <div className="App"
+    style={{
+      background: darkMode ? "black" : "",
+      color: darkMode ? "white" : "",
+    }}>
+     <div className="heading"> 
+     <Toggle/>
+      <h1>welcome to the recepie selector</h1>
+     </div>
       <form onSubmit={getSearch} className="Search-form">
         <input className="search-bar" 
         placeholder="enter the item name"
@@ -47,6 +61,7 @@ const getSearch = e=>{
          value={search}
          onChange={updateSearch}
          />
+        
         <button className="search-button" type="submit">Search</button>
       </form>
 <div className="recipes">
